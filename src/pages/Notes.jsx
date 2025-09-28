@@ -1,21 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Notes() {
-  const [notes, setNotes] = useState(["Buy groceries", "Finish project"]);
+  // Load from localStorage directly in initial state
+  const [notes, setNotes] = useState(() => {
+    const storedNotes = localStorage.getItem("notes");
+    return storedNotes ? JSON.parse(storedNotes) : []; // start empty if nothing in storage
+  });
+
   const [input, setInput] = useState("");
   const [editIndex, setEditIndex] = useState(null);
+
+  // Save notes to localStorage whenever notes change
+  useEffect(() => {
+    console.log("Saving notes:", notes);
+    localStorage.setItem("notes", JSON.stringify(notes));
+  }, [notes]);
 
   // Add a new note
   const addNote = () => {
     if (input.trim() === "") return;
     if (editIndex !== null) {
-      // update existing note
       const updatedNotes = [...notes];
       updatedNotes[editIndex] = input;
       setNotes(updatedNotes);
       setEditIndex(null);
     } else {
-      // add new note
       setNotes([...notes, input]);
     }
     setInput("");
