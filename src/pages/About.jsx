@@ -1,4 +1,9 @@
 function About() {
-  return <h1>This is a simple Notes app built with React Router</h1>;
+  return (
+     <div className="about">
+      <h2>About This App</h2>
+      <p>This app was built using React and React Router.</p>
+    </div>
+  );
 }
 export default About;
