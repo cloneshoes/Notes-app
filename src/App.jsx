@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Notes from "./pages/Notes";
 import About from "./pages/About";
@@ -6,24 +7,15 @@ import "./notes.css"
 
 function App() {
   return (
-    <div>
-    <Router>
-      <nav>
-        <Link to="/">Home</Link> |{" "}
-        <Link to="/notes">Notes</Link> |{" "}
-        <Link to="/about">About</Link>
-      </nav>
-
-    <div className="container">
+     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/notes" element={<Notes />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="notes" element={<Notes />} />
+        </Route>
       </Routes>
-      </div>
     </Router>
-    
-    </div>
   );
 }
 
